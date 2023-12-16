@@ -1,4 +1,4 @@
-name: "PR creator"
+name: "RedSock/PrCreator"
 description: "Creates Pull Request on push to branch"
 
 author: "RedSock"

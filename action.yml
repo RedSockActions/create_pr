@@ -8,10 +8,10 @@ branding:
   color: "red"
 
 inputs:
-  pr-name:
+  pr-name-pattern:
     description: "Pattern for pull request name"
     default: "DEV RELEASE OF ${{ github.REF_NAME }}'"
-  pr-body:
+  pr-body-pattern:
     description: "Pattern for pull request's body. Can accept markdown"
     default: "[${{ github.REF_NAME }}](https://redsock.youtrack.cloud/issue/${{ github.REF_NAME }})"
   repo-token:
@@ -48,7 +48,7 @@ runs:
             gh pr create \
               -B dev \
               -H ${{ github.REF }} \
-              --title 'DEV RELEASE OF ${{ github.REF_NAME }}' \
+              --title '${{ inputs.pr-name-pattern }}' \
               --body 'Created by RedSock action. \
-              [${{ github.REF_NAME }}](https://redsock.youtrack.cloud/issue/${{ github.REF_NAME }})'
+              ${{ inputs.pr-body-pattern }}'
         fi

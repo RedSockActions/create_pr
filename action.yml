@@ -8,12 +8,16 @@ branding:
   color: "red"
 
 inputs:
-  pr_name:
+  pr-name:
     description: "Pattern for pull request name"
     default: "DEV RELEASE OF ${{ github.REF_NAME }}'"
-  pr_body:
+  pr-body:
     description: "Pattern for pull request's body. Can accept markdown"
     default: "[${{ github.REF_NAME }}](https://redsock.youtrack.cloud/issue/${{ github.REF_NAME }})"
+  repo-token:
+    description: 'The GitHub token used to manage labels'
+    required: false
+    default: ${{ github.token }}
 
 runs:
   using: "composite"
@@ -25,7 +29,7 @@ runs:
 
     - name: Creating PR
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.repo-token }}
       shell: bash
       run: |
         prs=$(gh pr list \

@@ -16,8 +16,7 @@ inputs:
     default: "[${{ github.REF_NAME }}](https://redsock.youtrack.cloud/issue/${{ github.REF_NAME }})"
   repo-token:
     description: 'The GitHub token used to manage labels'
-    required: false
-    default: ${{ github.token }}
+    required: true
 
 runs:
   using: "composite"

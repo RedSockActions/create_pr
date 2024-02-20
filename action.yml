@@ -17,7 +17,9 @@ inputs:
   repo-token:
     description: 'The GitHub token used to manage labels'
     required: true
-
+  target-branch:
+    description: 'Target branch for pr'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -45,7 +47,7 @@ runs:
             echo "creating pull request from ${{ github.REF }} to dev branch"
         
             gh pr create \
-              -B dev \
+              -B ${{inputs.target-branch}} \
               -H ${{ github.REF }} \
               --title '${{ inputs.pr-name-pattern }}' \
               --body 'Created by RedSock action. \

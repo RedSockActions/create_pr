@@ -32,10 +32,10 @@ runs:
       id: validation
       shell: bash
       run: |
-        if [ -z ${{target-branch}}]; then
+        if [ -z "${{inputs.target-branch}}" ]; then
          echo "target-branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')" >> $GITHUB_OUTPUT
         else
-          echo "target-branch=${{target-branch}}" >> $GITHUB_OUTPUT
+          echo "target-branch=${{inputs.target-branch}}" >> $GITHUB_OUTPUT
         fi
 
     - name: Creating PR

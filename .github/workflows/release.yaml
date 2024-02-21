@@ -1,15 +1,14 @@
-name: master-actions
-run-name: RELEASE
+name: docs-actions
+run-name: UpdateDocs
 on:
+  workflow_dispatch:
   push:
     branches:
-      - master
-
+      - redocs
 jobs:
-  tag-release:
+  redocs-launch:
     runs-on: ubuntu-latest
     steps:
-      - name: Release
-        uses: RedSockActions/release_tag@v1.1.1
+      - uses: RedSockActions/redocs@v0.0.14
         with:
           token: ${{ github.token }}

@@ -1,0 +1,25 @@
+{
+  "tittle": "ReDocs action",
+  "link": "https://raw.githubusercontent.com/RedSockActions/create_pr/redocs/",
+  "basicPage": "Introduction",
+  "sections": [
+    {
+      "name": "Introduction",
+      "link": "/README.md"
+    },
+    {
+      "name": "Quick Start",
+      "link": "Quick_Start",
+      "inner": [
+        {
+          "name": "Github action",
+          "link": "/GH-Action.md"
+        },
+        {
+          "name": "Configuring",
+          "link": "/Config.md"
+        }
+      ]
+    }
+  ]
+}

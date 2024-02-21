@@ -10,7 +10,7 @@ branding:
 inputs:
   pr-name-pattern:
     description: "Pattern for pull request name"
-    default: "DEV RELEASE OF ${{ github.REF_NAME }}'"
+    default: "DEV RELEASE OF ${{ github.REF_NAME }}"
   pr-body-pattern:
     description: "Pattern for pull request's body. Can accept markdown"
     default: "[${{ github.REF_NAME }}](https://redsock.youtrack.cloud/issue/${{ github.REF_NAME }})"
@@ -37,7 +37,9 @@ runs:
         else
           echo "target-branch=${{inputs.target-branch}}" >> $GITHUB_OUTPUT
         fi
-
+        
+        echo "pr-name-pattern=$(echo "${{inputs.pr-name-pattern}}" | sed 's/"/\"/g')" >> $GITHUB_OUTPUT
+        echo "pr-body-pattern=$(echo "${{inputs.pr-body-pattern}}" | sed 's/"/\"/g')" >> $GITHUB_OUTPUT
     - name: Creating PR
       env:
         GITHUB_TOKEN: ${{ inputs.repo-token }}
@@ -59,6 +61,6 @@ runs:
             gh pr create \
               -B ${{ steps.validation.outputs.target-branch }} \
               -H ${{ github.REF }} \
-              --title '${{ inputs.pr-name-pattern }}' \
-              --body 'Created by RedSock action. ${{ inputs.pr-body-pattern }}'
+              --title "${{ steps.validation.outputs.pr-name-pattern }}" \
+              --body "Created by RedSock action. ${{ steps.validation.outputs.pr-body-pattern }}"
         fi

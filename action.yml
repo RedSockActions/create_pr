@@ -28,6 +28,16 @@ runs:
       with:
         ref: ${{ github.ref }}
 
+    - name: Validation
+      id: validation
+      shell: bash
+      run: |
+        if [ -z ${{target-branch}}]; then
+         echo "target-branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')" >> $GITHUB_OUTPUT
+        else
+          echo "target-branch=${{target-branch}}" >> $GITHUB_OUTPUT
+        fi
+
     - name: Creating PR
       env:
         GITHUB_TOKEN: ${{ inputs.repo-token }}
@@ -47,7 +57,7 @@ runs:
             echo "creating pull request from ${{ github.REF }} to dev branch"
         
             gh pr create \
-              -B ${{inputs.target-branch}} \
+              -B ${{steps.validation.outputs.target-branch}} \
               -H ${{ github.REF }} \
               --title '${{ inputs.pr-name-pattern }}' \
               --body 'Created by RedSock action. \
